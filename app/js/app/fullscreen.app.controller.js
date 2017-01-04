@@ -26,7 +26,7 @@
       if (newVal === 1 && vm.map !== null) {
         $timeout(function () {
           vm.map.forceRedraw();
-        }, 50);
+        }, 750);
       }
     });
 
