@@ -2,9 +2,9 @@
   'use strict';
   angular.module('cityInfo').controller('FullscreenController', FullscreenController);
 
-  FullscreenController.$inject = ['$scope'];
+  FullscreenController.$inject = ['$scope', '$timeout'];
 
-  function FullscreenController($scope) {
+  function FullscreenController($scope, $timeout) {
     var vm = this;
 
     var dragStartListener = null;
@@ -21,6 +21,14 @@
     vm.hidePoiDetails = hidePoiDetails;
 
     $scope.$on('mapReady', onMapReady);
+
+    $scope.$watch('tab', function(newVal, oldVal) {
+      if (newVal === 1 && vm.map !== null) {
+        $timeout(function () {
+          vm.map.forceRedraw();
+        }, 50);
+      }
+    });
 
     function onMapReady(e, map) {
       e.preventDefault();
