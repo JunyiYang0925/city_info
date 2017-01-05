@@ -16,7 +16,7 @@
     vm.searchForPoi = searchForPoi;
     vm.getQueryPredictions = getPoiAutoCompleteResults;
 
-    $scope.$on('poiAttributionContainerReady', onAttributionContainerReady);
+    $scope.$on('maptabPoiAttributionContainerReady', onAttributionContainerReady);
 
     function searchForItem(item) {
       if (item !== null) {

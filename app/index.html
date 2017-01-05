@@ -19,7 +19,7 @@
 
   <script type="text/javascript" src="js/llb.js"></script>
   <script type="text/javascript" src="js/app/app.module.js"></script>
-  <script type="text/javascript" src="js/app/fullscreen.app.controller.js"></script>
+  <script type="text/javascript" src="js/app/maptab.app.controller.js"></script>
 
   <!-- shared -->
   <script type="text/javascript" src="js/shared/shared.module.js"></script>
@@ -60,27 +60,27 @@
       </div>
     </div>
 
-    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && $root.tab === 1'>
+    <div ng-controller='MapTabController as mtc' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && $root.tab === 1'>
       <apt-map id='mapview-map'>
-        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
+        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='mtc.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
         </md-button>
       </apt-map>
 
-      <div ng-controller='PoiController as poiCtrl'>
+      <div ng-controller='PoiController as pc'>
         <md-autocomplete
         id='poi-searchbar'
         class='searchbar'
         md-input-name='poi-search'
-        md-selected-item='poiCtrl.selectedItem'
-        md-search-text='poiCtrl.searchText'
-        md-items='item in poiCtrl.getQueryPredictions(poiCtrl.searchText)'
+        md-selected-item='pc.selectedItem'
+        md-search-text='pc.searchText'
+        md-items='item in pc.getQueryPredictions(pc.searchText)'
         md-delay='200'
         md-min-length='2'
         md-item-text='item.description'
-        md-selected-item-change='poiCtrl.searchForItem(poiCtrl.selectedItem)'
+        md-selected-item-change='pc.searchForItem(pc.selectedItem)'
         md-close-autocomplete-on-enter
-        ng-enter='poiCtrl.searchForPoi(poiCtrl.selectedItem !== null ? poiCtrl.selectedItem : poiCtrl.searchText)'>
+        ng-enter='pc.searchForPoi(pc.selectedItem !== null ? pc.selectedItem : pc.searchText)'>
         <md-item-template>
           {{item.description}}
         </md-item-template>
@@ -90,41 +90,41 @@
       </md-autocomplete>
     </div>
 
-    <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
-      <md-button class="md-icon-button" id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">
-        <md-icon md-svg-src='{{ fcCtrl.detailsFullscreen ? "img/icons/ic_expand_more_black_24px.svg" : "img/icons/ic_expand_less_black_24px.svg"}}'></md-icon>
+    <div id='poi-detail-dialog' ng-show="mtc.selectedPoi !== null" ng-class="mtc.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
+      <md-button class="md-icon-button" id="detail-dialog-size-btn" ng-click="mtc.detailsFullscreen = !mtc.detailsFullscreen">
+        <md-icon md-svg-src='{{ mtc.detailsFullscreen ? "img/icons/ic_expand_more_black_24px.svg" : "img/icons/ic_expand_less_black_24px.svg"}}'></md-icon>
       </md-button>
-      <md-button class="md-icon-button" id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">
+      <md-button class="md-icon-button" id="detail-dialog-dismiss-btn" ng-click="mtc.hidePoiDetails()">
         <md-icon md-svg-src='img/icons/ic_close_black_24px.svg'></md-icon>
       </md-button>
       <div style="height: 100%;"> <!--  Needed for carousels adaptive size -->
-        <h3>{{fcCtrl.selectedPoi.name}}</h3>
+        <h3>{{mtc.selectedPoi.name}}</h3>
         <p>
-          <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:2">
+          <span ng-repeat="category in mtc.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:2">
             {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
           </span>
         </p>
-        <p>{{ fcCtrl.selectedPoi | poiAddress : true }}</p>
-        <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.formatted_phone_number'>Phone: {{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
-        <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.opening_hours'>Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}}</p>
-        <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.rating'>Rating: {{ fcCtrl.selectedPoi.rating }}</p>
-        <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.website'>
-          <a href='{{ fcCtrl.selectedPoi.website }}' target='_blank'>{{ fcCtrl.selectedPoi.website }}</a>
+        <p>{{ mtc.selectedPoi | poiAddress : true }}</p>
+        <p ng-show='mtc.detailsFullscreen && mtc.selectedPoi.formatted_phone_number'>Phone: {{ mtc.selectedPoi.formatted_phone_number }}</p>
+        <p ng-show='mtc.detailsFullscreen && mtc.selectedPoi.opening_hours'>Currently {{ mtc.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}}</p>
+        <p ng-show='mtc.detailsFullscreen && mtc.selectedPoi.rating'>Rating: {{ mtc.selectedPoi.rating }}</p>
+        <p ng-show='mtc.detailsFullscreen && mtc.selectedPoi.website'>
+          <a href='{{ mtc.selectedPoi.website }}' target='_blank'>{{ mtc.selectedPoi.website }}</a>
         </p>
 
-        <div ng-if="fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.photos" class="poi-photo-carousel-container">
+        <div ng-if="mtc.detailsFullscreen && mtc.selectedPoi.photos" class="poi-photo-carousel-container">
           <ul rn-carousel rn-carousel-index="carouselIdx" class="poi-photo-carousel">
-            <li ng-repeat="photo in fcCtrl.selectedPoi.photos">
+            <li ng-repeat="photo in mtc.selectedPoi.photos">
               <div ng-style="{'background-image': 'url(' + photo.getUrl({maxWidth:512}) + ')'}"  class="poi-photo-carousel-bgimage">
                 <span class="attribution-text" ng-bind-html="photo.html_attributions[0]"></span>
               </div>
             </li>
           </ul>
-          <div rn-carousel-indicators ng-if="fcCtrl.selectedPoi.photos.length > 1" slides="fcCtrl.selectedPoi.photos" rn-carousel-index="carouselIdx">
+          <div rn-carousel-indicators ng-if="mtc.selectedPoi.photos.length > 1" slides="mtc.selectedPoi.photos" rn-carousel-index="carouselIdx">
           </div>
         </div>
 
-        <a href='{{ fcCtrl.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
+        <a href='{{ mtc.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
         <div>
         </div>
       </div>
