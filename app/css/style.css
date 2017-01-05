@@ -154,13 +154,13 @@ html, body, iframe
   width: 32.5%;
   bottom: 0px;
   left: 0px;
-  background-color: blue;
+  background-color: #3f51b5;
   padding:0px;
   margin: 0px;
 }
 
 .tab-button.active {
-  background-color: yellow;
+  background-color: #0575bd;
 }
 
 .hidden {
@@ -175,4 +175,31 @@ html, body, iframe
   position: absolute;
   overflow-y: scroll;
   height: calc(100% - 50px);
+}
+#POIlist{
+
+}
+#POIlist h1{
+  font-family: "Comic Sans MS";
+}
+#POIlist ol {
+  font-style:italic;
+  font-family:Georgia, Times, serif;
+  font-size:24px;
+  color:#bfe1f1;
+}
+#POIlist ol li {
+
+}
+#POIlist ol li p {
+  padding:8px;
+  font-style:normal;
+  font-family:Arial;
+  font-size:13px;
+  color:#eee;
+  border-left: 1px solid #999;
+}
+#POIlist ol li p em {
+  display:block;
+  font-size: 20px;
 }

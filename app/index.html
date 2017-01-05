@@ -44,6 +44,10 @@
   <script type="text/javascript" src="js/news/news.module.js"></script>
   <script type="text/javascript" src="js/news/news.controller.js"></script>
 
+  <!-- places -->
+  <script type="text/javascript" src="js/places/places.module.js"></script>
+  <script type="text/javascript" src="js/places/places.controller.js"></script>
+
   <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
@@ -150,8 +154,17 @@
   </div>
 
   <!--places view-->
-  <div ng-show='($root.fullscreen && $root.tab === 3)' style="position: absolute">
-    <p> places view </p>
+  <div ng-show='($root.fullscreen && $root.tab === 3)' style="position: absolute; width: 100%;" class="scroll-vertical" ng-controller="PlacesController as pc">
+    <div ng-repeat="lists in POIlist">
+      <div id="POIlist" ng-repeat="(key,list) in lists">
+        <h1 align="center">{{key}}</h1>
+        <ol>
+          <li ng-repeat="POI in list">
+            <p><em>{{POI.name}}</em>Address:{{POI.address}}, Rate:{{POI.rate}}/5, Distance:{{POI.distance}}km</p>
+          </li>
+        </ol>
+      </div>
+    </div>
   </div>
 
   <!--buttons-->
