@@ -62,12 +62,6 @@ html, body, iframe
   right: 0;
 }
 
-#favorites-btn {
-  position: absolute;
-  bottom: 135px;
-  right: 0;
-}
-
 #poi-detail-dialog {
   position: absolute;
   background-color: white;
@@ -176,6 +170,7 @@ html, body, iframe
   overflow-y: scroll;
   height: calc(100% - 50px);
 }
+
 #POIlist{
 
 }
@@ -202,4 +197,33 @@ html, body, iframe
 #POIlist ol li p em {
   display:block;
   font-size: 20px;
+}
+
+.news-item {
+  padding: 20px 0;
+  height: 120px;
+  margin: 0 0 5px 0;
+  display: table;
+  width: 100%;
+}
+
+.news-item:hover,
+.news-item:focus {
+  transform: scale(1.1);
+  transition: all .5s;
+}
+
+.news-text {
+  padding: 5px 15px;
+  background: url('../img/bg-img-transparent.png');
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.news-text a {
+  color: #fefefe;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
 }
