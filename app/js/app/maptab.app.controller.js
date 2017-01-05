@@ -1,10 +1,10 @@
 (function() {
   'use strict';
-  angular.module('cityInfo').controller('FullscreenController', FullscreenController);
+  angular.module('cityInfo').controller('MapTabController', MapTabController);
 
-  FullscreenController.$inject = ['$scope', '$timeout'];
+  MapTabController.$inject = ['$scope', '$timeout'];
 
-  function FullscreenController($scope, $timeout) {
+  function MapTabController($scope, $timeout) {
     var vm = this;
 
     var dragStartListener = null;
@@ -44,7 +44,7 @@
           });
       });
 
-      $scope.$broadcast('poiAttributionContainerReady', map);
+      $scope.$broadcast('maptabPoiAttributionContainerReady', map);
     }
 
     function showSearchResults(resultsArr) {
