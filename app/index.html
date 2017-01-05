@@ -39,6 +39,8 @@
   <script type="text/javascript" src="js/poi/poi.controller.js"></script>
   <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
   <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
+  <script type="text/javascript" src="js/poi/poi.distance.filter.js"></script>
+  <script type="text/javascript" src="js/poi/poi.distance.sort.js"></script>
 
   <!-- news -->
   <script type="text/javascript" src="js/news/news.module.js"></script>
@@ -146,17 +148,21 @@
   </div>
 
   <!--places view-->
-  <div ng-show='($root.fullscreen && $root.tab === 3)' style="position: absolute; width: 100%;" class="scroll-vertical" ng-controller="PlacesController as pc">
-    <div ng-repeat="lists in pc.POIlist">
-      <div id="POIlist" ng-repeat="(key,list) in lists">
-        <h1 align="center">{{key}}</h1>
-        <ol>
-          <li ng-repeat="POI in list">
-            <p><em>{{POI.name}}</em>Address:{{POI.address}}, Rate:{{POI.rate}}/5, Distance:{{POI.distance}}km</p>
-          </li>
-        </ol>
+  <div ng-show='($root.fullscreen && $root.tab === 3)' ng-if='::$root.fullscreen || undefined' style="position: absolute; width: 100%;" class="scroll-vertical" ng-controller="PlacesController as pc">
+    <h2>Nearby places</h2>
+    <div ng-repeat="POI in pc.pois | orderBy : 'distanceToUser'">
+      <hr>
+      <div><strong>{{POI.name}}</strong></div>
+      <div>
+        <span ng-repeat="category in POI.types | strBlacklist : 'point_of_interest' | limitTo:2">
+          {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
+        </span>
       </div>
+      <div>{{POI | poiAddress : true}}</div>
+      <div>Distance: {{POI.distanceToUser | distance : 'km' : 'm'}}</div>
     </div>
+
+    <div id="placestab-attribution-container"></div>
   </div>
 
   <!--buttons-->
