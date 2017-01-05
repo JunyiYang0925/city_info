@@ -5,7 +5,8 @@
     PlacesController.$inject = ['$scope'];
 
     function PlacesController ($scope) {
-        $scope.POIlist= [{
+        var vm = this;
+        vm.POIlist= [{
             "cafe": [
                 {
                     "name":"Cafe Tullintori",

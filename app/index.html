@@ -155,7 +155,7 @@
 
   <!--places view-->
   <div ng-show='($root.fullscreen && $root.tab === 3)' style="position: absolute; width: 100%;" class="scroll-vertical" ng-controller="PlacesController as pc">
-    <div ng-repeat="lists in POIlist">
+    <div ng-repeat="lists in pc.POIlist">
       <div id="POIlist" ng-repeat="(key,list) in lists">
         <h1 align="center">{{key}}</h1>
         <ol>
