@@ -54,6 +54,9 @@
         else if (input.formatted_address !== undefined) {
           return input.formatted_address;
         }
+        else if (input.vicinity !== undefined) {
+          return input.vicinity;
+        }
         else {
           return null;
         }
